@@ -1,0 +1,20 @@
+{% extends "diary/base.html" %}
+{%  block body %}
+<a href="{% url 'diary:post-add' %}">New Entry</a>
+
+
+	{% for post in all_posts %}
+	<div class="col-sm-4 col-lg-2">
+                    <div class="thumbnail">
+                    	<img src="{{ post.cover_photo.url }}">
+<div class="caption">
+	<a href="{% url 'diary:post-detail' post.pk  %}">{{ post.title }}</a>
+	
+
+</div>
+</div>
+</div>
+
+	{% endfor %}
+
+{% endblock %}

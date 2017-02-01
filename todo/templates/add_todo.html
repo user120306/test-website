@@ -1,0 +1,14 @@
+{% extends "diary/base.html" %}
+{%block title %}Add | {{fname}}{% endblock %}
+{%block content%}
+<div class="mid">
+<div><b>{{fname}}</b>&nbsp;|&nbsp;<a href="/logout">Logout</a></div>
+<h1>Add Todo List</h1>
+<form action="add-todo" method="post">
+<label>Job</label>
+<textarea name="job" required></textarea>
+<input type="submit" value="Add">
+{% csrf_token %}
+</form>
+</div>
+{% endblock %}

@@ -1,0 +1,27 @@
+{%extends "base.html" %}
+{%block title %}Welcome{% endblock %}
+{%block content %}
+<div class="mid">
+<div class="left small-div">
+<h1>Signup</h1>
+<form action="signup" method="post" enctype="multipart/form-data" id="frmId">
+{{form.as_p}}
+<input type="submit" value="signup" class="btn">
+{% csrf_token %}
+</form>
+</div>
+<div class="right small-div">
+<h1>Login</h1>
+<form action="login" method="post">
+<label>Email</label>
+<input type="text" name="email" required>
+<label>Password</label>
+<input type="password" name="password" required>
+<input type="submit" value="Login">
+{% csrf_token %}
+</form>
+</div>
+<div style="clear:both;"></div>
+</div>
+
+{% endblock %}

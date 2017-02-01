@@ -1,0 +1,26 @@
+{%extends "base.html"%}
+{%block title %}Add | {{fname}}{% endblock %}
+{%block content%}
+<div class="mid">
+<div><b>{{fname}}</b>&nbsp;|&nbsp;<a href="/logout">Logout</a></div>
+<h1>Edit user details</h1>
+<form action="" method="post">
+
+<label>Email</label>
+<input type="text" name="email" required value="{{user_obj.email}}">
+
+<label>First name</label>
+<input type="text" name="fname" required value="{{user_obj.fname}}">
+<label>Last name</label>
+<input type="text" name="lname" required value="{{user_obj.lname}}">
+<label>Password</label>
+<input type="password" name="password" required  value="{{user_obj.password}}">
+<label>Join date</label>
+<input type="text" name="join_date" value="{{user_obj.join_date}}">
+
+<input type="hidden" name="id" value="{{user_obj.id}}">
+        <button type="submit" class="save btn btn-default">Save</button>
+{% csrf_token %}
+</form>
+</div>
+{% endblock %}

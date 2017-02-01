@@ -1,0 +1,24 @@
+{%extends "base.html" %}
+{%block title %}{{fname}}{% endblock %}
+{%block content %}
+<div class="mid">
+<div><img src="./images/profile/thumb/{{pic}}" width="50" style="vertical-align:middle;">&nbsp;<b>
+	{%for row in user%}
+	<a href="/edit-user/{{row.pk}}">{{fname}}</a></b>&nbsp;|&nbsp;
+{%endfor%}
+	<a href="/logout">Logout</a></div>
+<h1>Todo List</h1>
+<a href="add-todo">Add Todo</a>
+<table width="100%" cellpadding="5">
+<tr>
+<td width="20%">Date</td><td width="70%">Job</td><td width="5%">&nbsp;</td>
+</tr>
+{%for row in todo%}
+<tr><td>{{row.created_date|date:"D d M Y"}}</td>
+	<td>{{row.todo_job}}</td>
+	<td><a href="/edit-todo/{{row.id}}">Edit</a>&nbsp;|&nbsp;<a href="/delete-todo/{{row.id}}">Delete</a></td>
+</tr>
+{%endfor%}
+</table>
+</div>
+{% endblock %}

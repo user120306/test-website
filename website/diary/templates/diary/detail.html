@@ -1,0 +1,53 @@
+{% extends "diary/base.html" %}
+{%  block body %}
+
+<h2>	{{ post.title }} </h2>
+<a href="">{{ post.author }}</a>
+
+	<a href="{% url 'diary:post-update' post.id %}">Edit</a>
+
+<p>	{{ post.desc }}<p>
+<img width="300" src="{{ post.cover_photo.url }}">
+
+
+	<h2>Entries</h2>
+	<table>
+
+	{% for e in post.ordered_entry_set %}
+<tr>
+	<td>{{ e.entry_date|date:'H:i'}}</td>
+	<td colspan="2">{{ e.short_text }}</td>
+</tr>
+<tr>
+	<td></td>
+	<td>
+		<!--- Map url-->
+		{% if e.map_url is not null %}
+<iframe src="{{ e.map_url }}" width="300" height="200" frameborder="0" style="border:0" allowfullscreen></iframe>
+{% endif %}
+		<!-- Video -->
+		{% if e.song_url is not null %}
+<iframe width="300" height="200" src="{{ e.song_url }}" frameborder="0" allowfullscreen></iframe>
+{% endif %}
+		<!-- Photo -->
+		{% if e.photo_url.url is not null %}
+		<img width="300" src="{{ e.photo_url.url }}">
+		{% endif %}
+		
+		<!-- Website -->
+		{% if e.site_url is not null %}
+<iframe width="300" height="200" src="{{ e.site_url }}" frameborder="0" allowfullscreen></iframe>
+{% endif %}
+
+<p>{{ e.long_text }}</p>
+	</td>
+	<td><a href="{% url 'diary:entry-update' e.id %}">Edit</a>
+	<a href="{% url 'diary:entry-delete' post_id=e.post_id entry_id=e.id %}">Delete</a>
+	</td>
+</tr>
+	{% endfor %}
+
+</table>
+	<a href="{% url 'diary:entry-add' post.id %}">Add</a>
+
+{% endblock %}

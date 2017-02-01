@@ -1,0 +1,52 @@
+{% extends 'music/base_album.html' %}
+{% block title %}{{ album }}{% endblock %}
+{% block all_song_active %}active{% endblock %}
+
+{% block albumbody %}
+
+
+                    <h3>All Songs</h3>
+
+                    {% if error_message %}
+                        <p><strong>{{ error_message }}</strong></p>
+                    {% endif %}
+
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Audio File</th>
+                            <th>Favorite</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for song in album.song_set.all %}
+                            <tr>
+                                <td>{{ song.song_title }}</td>
+                                <td>
+                                    <a target="_blank" href="{{ song.audio_file.url }}">
+                                        <button type="button" class="btn btn-success btn-xs">
+                                            <span class="glyphicon glyphicon-play"></span>&nbsp; Play
+                                        </button>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="{% url 'music:favourite_song' song_id=song.id %}" class="btn-favorite">
+                                    <span {% if song.is_favourite %} class="glyphicon glyphicon-star" {% else %} class="glyphicon glyphicon-star-empty" {% endif %}></span></a>
+                                </td>
+                                <td>
+                                    <form action="{% url 'music:delete_song' album_id=song.album.pk song_id=song.id %}" method="post" style="display: inline;">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="song_id" value="{{ song.id }}" />
+                                        <button type="submit" class="btn btn-danger btn-xs">
+                                            <span class="glyphicon glyphicon-remove"></span>&nbsp; Delete
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+{% endblock %}
